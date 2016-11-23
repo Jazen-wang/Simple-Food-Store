@@ -1,6 +1,5 @@
 node_modules/
 bower_components/
-/public/app-angular/
 
 .DS_Store
 .vscode
