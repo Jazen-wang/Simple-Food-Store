@@ -1,0 +1,15 @@
+node_modules/
+bower_components/
+/public/app-angular/
+
+.DS_Store
+.vscode
+.idea
+
+*.log
+
+docs/
+dist/
+
+downloads/*
+uploads/*

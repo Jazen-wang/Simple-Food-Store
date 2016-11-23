@@ -1,0 +1,17 @@
+{
+  "name": "simple_food_store",
+  "version": "1.0.0",
+  "description": "A simple online store for accepting user's orders.",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm start"
+  },
+  "keywords": [
+    "angular",
+    "node",
+    "foodstore",
+    "nginx"
+  ],
+  "author": "王镇佳 黄潮立 林俊杰 梁海兴 陈元杉 何成诏",
+  "license": "ISC"
+}
