@@ -1,4 +1,34 @@
 html
   head
+    link(rel="stylesheet" href="/stylesheets/login-register.css")
   body
-    div this is login-register //todo  test
+
+    #fs-login-register
+      #geetest-popup-submit
+      .login-register-wrapper
+
+        .login-register-container
+
+          .fs-logo
+            span Food Store
+
+          .login-register-form
+
+            .login-register-tabs
+              span.tab-item.choose Log in
+              //- span.tab-item Register
+
+            .login-register-tabs-container
+              form.login
+                input(id='username' type='text' placeholder='User Name' required)
+                input(id='password' type='password' placeholder='Password'  required)
+
+                .form-item
+                  input(id='remember-username' type='checkbox')
+                  label(for='remember-username') Remember Username
+
+
+                input(type='submit' value='Log in')
+
+              //- form.register(ng-show='selectedTab == "register"')
+              //-   h2 注册功能敬请期待!~

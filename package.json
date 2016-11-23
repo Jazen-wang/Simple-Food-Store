@@ -17,8 +17,11 @@
   "devDependencies": {
     "browser-sync": "^2.18.2",
     "colors": "^1.1.2",
+    "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-develop-server": "^0.5.2",
+    "gulp-jade": "^1.1.0",
+    "gulp-sass": "^2.3.2",
     "gulp-sync": "^0.1.4",
     "gutil": "^1.6.4"
   }
