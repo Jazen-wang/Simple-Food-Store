@@ -1,0 +1,35 @@
+
+<html>
+  <head>
+    <link rel="stylesheet" href="/stylesheets/all-foods.css"/>
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/javascripts/all-foods.js"></script>
+  </head>
+  <body ng-app="fs">
+    <div id="all-foods" ng-controller="all-foods">
+      <div class="first-bar">
+        <div class="top-bar-content">
+          <div class="logo"><img src="images/logo.jpg"/></div>
+          <div class="store-name">林俊杰的店</div>
+          <div class="search-box">
+            <input placeholder="search food" ng-model="itemModel"/>
+            <div class="search-button">搜索</div>
+          </div>
+        </div>
+      </div>
+      <div class="second-bar">
+        <div class="second-bar-container">
+          <div class="img-sort"><img src="images/icon_sort.png"/></div>
+          <div class="second-title">美食分类        </div>
+        </div>
+      </div>
+      <div class="food-area">
+        <div ng-repeat="item in foodItems | fsSearch: itemModel" class="food-item"><img src="{{item.url}}"/>
+          <div class="food-name">{{item.foodName}}</div>
+          <div class="food-price">价格￥ {{item.foodPrice}}</div>
+          <div class="food-vip">VIP</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

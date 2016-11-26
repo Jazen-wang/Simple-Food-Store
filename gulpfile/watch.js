@@ -14,7 +14,11 @@ const colors = require('colors');
  */
 gulp.task('fe', gulpsync.sync(['compile', 'server', 'browser']), function() {
 
-  gulp.watch(['./views/**/*.*', './public/**/*.*', './stylesheets/**/*.*',], reloadBrowser);
+  gulp.watch(['./views/**/*.*', './public/**/*.*', './stylesheets/**/*.*',], function(event) {
+
+    gulp.start(['compile'], reloadBrowser);
+
+  });
 
 });
 
@@ -27,7 +31,8 @@ gulp.task('fe', gulpsync.sync(['compile', 'server', 'browser']), function() {
 gulp.task('browser', function() {
 
   browserSync.init({
-    proxy: 'http://localhost:3002'
+    proxy: 'http://localhost:8002',
+    port: 8000
   });
 
 });
@@ -56,7 +61,7 @@ function reloadBrowser() {
  */
 function rerunServer() {
 
-  setTimeout(server.restart, 0);
+  setTimeout(server.restart, 100);
 
 }
 

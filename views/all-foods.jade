@@ -1,0 +1,29 @@
+html
+  head
+    link(rel="stylesheet" href="/stylesheets/all-foods.css")
+    script(src="/bower_components/angular/angular.min.js")
+    script(src="/javascripts/all-foods.js")
+    
+  body(ng-app="fs")
+    #all-foods(ng-controller="all-foods")
+      .first-bar
+        .top-bar-content
+          .logo
+            img(src="images/logo.jpg")
+          .store-name 林俊杰的店
+          .search-box
+            input(placeholder="search food" ng-model="itemModel")
+            .search-button 搜索
+          
+      .second-bar
+        .second-bar-container
+          .img-sort
+            img(src="images/icon_sort.png")
+          .second-title 美食分类        
+      .food-area
+        .food-item(ng-repeat="item in foodItems | fsSearch: itemModel")
+          img(src="{{item.url}}")
+          .food-name {{item.foodName}}
+          .food-price 价格￥ {{item.foodPrice}}
+          .food-vip VIP
+          

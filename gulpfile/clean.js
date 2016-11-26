@@ -8,7 +8,7 @@ const del = require('del');
  * 作用：删除日志文件、编译过的开发性代码文件、产品代码文件、所有文档
  *
  */
-gulp.task('clean', gulpsync.async(['clean:log', 'clean:code']));
+gulp.task('clean', gulpsync.async(['clean:log']));
 
 /**
  *
@@ -29,6 +29,5 @@ gulp.task('clean:log', function() {
  */
 gulp.task('clean:code', function() {
 
-  return del(['./public/stylesheets/', './public/views/']);
 
 });
