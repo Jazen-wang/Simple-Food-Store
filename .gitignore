@@ -10,5 +10,6 @@ bower_components/
 docs/
 dist/
 
+data/*
 downloads/*
 uploads/*
