@@ -37,5 +37,32 @@ module.exports = function (db) {
   interface.createOrder = createFunc(order, 'Order');
   interface.findOrder = findFunc(order, 'Order');
 
+
+  interface.login = function (req, res, next) {
+    var loginUser = req.body;
+    if (!loginUser || !loginUser.username || !loginUser.password) {
+      res.writeHead(400);
+      res.end('no username or password');
+      return;
+    }
+    user.findUser(loginUser).then((users) => {
+      if (users.length > 0) {
+        req.session.user = users[0];
+        res.end('login success');
+      } else {
+        res.writeHead(400);
+        res.end('not such a user');
+      }
+    }).catch((err) => {
+      res.writeHead(400);
+      res.end('something error in mongodb!');
+    })
+  }
+
+  interface.logout = function (req, res, next) {
+    if (req.session) req.session.user = null;
+    res.end('logout success');
+  }
+
   return interface; 
 }
