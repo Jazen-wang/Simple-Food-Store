@@ -44,6 +44,11 @@ function setPublicRouter() {
     res.sendFile(path.join(__dirname, dir));
   });
 
+  app.get('/all-order', function(req, res) {
+    let dir = '../public/views/all-order.html';
+    res.sendFile(path.join(__dirname, dir));
+  });
+
 }
 
 function setAuthRouter() {
