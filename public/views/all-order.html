@@ -1,0 +1,32 @@
+
+<html>
+  <head>
+    <link rel="stylesheet" href="/stylesheets/all-order.css"/>
+    <script src="/javascripts/angular.min.js"></script>
+    <script src="/javascripts/all-order.js"></script>
+  </head>
+  <body ng-app="app">
+    <div id="all-order">
+      <div id="all-orders" ng-controller="OrderController as OC">
+        <div class="first-bar">
+          <div class="top-bar-content">
+            <div class="logo"><img src="images/logo.jpg"/></div>
+            <div class="store-name">林俊杰的店</div>
+            <div class="search-box">
+              <input placeholder="search food"/>
+              <div class="search-button">搜索</div>
+            </div>
+          </div>
+        </div>
+        <div class="order-area">
+          <div ng-repeat="item in OC.OrderList" class="order-item">
+            <div class="food-name">{{item.foodname}}</div>
+            <div class="food-price">价格￥ {{item.price}}</div>
+            <div class="food-count">数量；{{item.count}}</div>
+            <div class="cancel">取消</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

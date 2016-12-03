@@ -7,7 +7,8 @@ var logger = require('./utils/logger');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var path = require('path');
-var session = require('express-session')
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
 
 module.exports = function (db) {
   let ctrl = require('./control/index')(db);
@@ -44,11 +45,19 @@ function setPublicRouter() {
     res.sendFile(path.join(__dirname, dir));
   });
 
+  app.get('/all-order', function(req, res) {
+    let dir = '../public/views/all-order.html';
+    res.sendFile(path.join(__dirname, dir));
+  });
+
 }
 
 function setAuthRouter() {
   app.get('/*', function(req, res, next) {
-    if ((req.path.indexOf('/api') == -1) && !req.session.user) {
+    if (!req.session) {
+      logger.error("Redis is not start.");
+      res.redirect('/login');
+    } else if ((req.path.indexOf('/api') == -1) && !req.session.user) {
       res.redirect('/login');
     } else {
       next();
@@ -71,7 +80,15 @@ function setConnection() {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
 
-  app.use(session({ secret: 'Simple Food Store For pml', cookie: { maxAge: 60000 }}))
+  let redisOptions = {
+    host: 'localhost',
+    port: 6379
+  }
+
+  app.use(session({
+    store: new RedisStore(redisOptions),
+    secret: 'Simple Food Store For pml',
+    cookie: { maxAge: 60000 }}))
 }
 
 function setLogRouter(ctrl) {
@@ -105,7 +122,6 @@ function setErrorHandle() {
 
   // error handler
   app.use(function(err, req, res, next) {
-
     res.status(err.status || 500);
     res.end('error HTML');
   });

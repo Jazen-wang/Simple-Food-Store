@@ -1,0 +1,24 @@
+html
+  head
+    link(rel="stylesheet" href="/stylesheets/all-order.css")
+    script(src="/javascripts/angular.min.js")
+    script(src="/javascripts/all-order.js")
+
+  body(ng-app="app")
+    #all-order
+      #all-orders(ng-controller="OrderController as OC")
+          .first-bar
+            .top-bar-content
+              .logo
+                img(src="images/logo.jpg")
+              .store-name 林俊杰的店
+              .search-box
+                input(placeholder="search food")
+                .search-button 搜索
+                    
+          .order-area
+            .order-item(ng-repeat="item in OC.OrderList")
+              .food-name {{item.foodname}}
+              .food-price 价格￥ {{item.price}}
+              .food-count 数量；{{item.count}}
+              .cancel 取消
