@@ -24,7 +24,7 @@ exports.post = function (url, data) {
         datas += chunk;
       });
       res.on('end', () => {
-        resolve(datas);
+        resolve(JSON.parse(datas));
       });
     });
 

@@ -1,0 +1,32 @@
+[
+  {
+    "username": "huangchaoli",
+    "password": "123456",
+    "vip": true,
+    "phone": "15521188004"
+  },
+  {
+    "username": "zhenjia",
+    "password": "123456",
+    "vip": true,
+    "phone": "12345678910"
+  },
+  {
+    "username": "JJ",
+    "password": "123456",
+    "vip": true,
+    "phone": "12345678911"
+  },
+  {
+    "username": "pml",
+    "password": "123456",
+    "vip": false,
+    "phone": "12345678912"
+  },
+  {
+    "username": "cmd",
+    "password": "123456",
+    "vip": true,
+    "phone": "12345678913"
+  }
+]

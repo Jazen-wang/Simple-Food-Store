@@ -6,14 +6,22 @@ module.exports = function (db) {
   let order = require('../model/order')(db);
   var interface = {};
 
+  let sendData = function (res, state, message) {
+    res.writeHead(state);
+    let data = {
+      state: state,
+      message: message
+    }
+    res.end(JSON.stringify(data));
+  }
+
   let createFunc = function (table, tableName) {
     return function (req, res) {
       let newOne = req.body;
       table["create" + tableName](newOne).then(()=>{
-        res.end('OK');
+        sendData(res, 200, 'OK');
       }).catch((err)=>{
-        res.writeHead(400);
-        res.end(err.message);
+        sendData(res, 400, err.message);
       });
     }
   } 
@@ -24,8 +32,7 @@ module.exports = function (db) {
       table['find' + tableName](filter).then((arr)=>{
         res.end(arr.toString());
       }).catch((err)=>{
-        res.writeHead(400);
-        res.end(err.message);
+        sendData(res, 400, err.message);
       })
     }
   }
@@ -41,27 +48,24 @@ module.exports = function (db) {
   interface.login = function (req, res, next) {
     var loginUser = req.body;
     if (!loginUser || !loginUser.username || !loginUser.password) {
-      res.writeHead(400);
-      res.end('no username or password');
+      sendData(res, 400, 'no username or password');
       return;
     }
     user.findUser(loginUser).then((users) => {
       if (users.length > 0) {
         req.session.user = users[0];
-        res.end('login success');
+        sendData(res, 200, 'login success');
       } else {
-        res.writeHead(400);
-        res.end('not such a user');
+        sendData(res, 400, 'not such a user');
       }
     }).catch((err) => {
-      res.writeHead(400);
-      res.end('something error in mongodb!');
+      sendData(res, 400, 'something error in mongodb!');
     })
   }
 
   interface.logout = function (req, res, next) {
     if (req.session) req.session.user = null;
-    res.end('logout success');
+    sendData(res, 200, 'logout success');
   }
 
   return interface; 

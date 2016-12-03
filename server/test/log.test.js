@@ -5,8 +5,8 @@ describe('Interfaces', function () {
 
   before(function (done) {
     HTTP.post('/api/user', {username: "huangchaoli", password: "happy", phone: "15521188004", vip: true})
-        .then((message)=>{
-         assert(message == 'OK');
+        .then((res)=>{
+         assert(res.message == 'OK');
          done();
         });
   })
@@ -15,15 +15,14 @@ describe('Interfaces', function () {
   describe('#Login', function() {
     it('login user who exist should success', function (){
       return HTTP.post('/login', {username: "huangchaoli", password: "happy"})
-                 .then((message)=>{
-                   assert(message == 'login success');
+                 .then((res)=>{
+                   assert(res.message == 'login success');
                  });
     });
-    it('login user who not exist should fails', function (){
+    it('login user who not exist should fail', function (){
       return HTTP.post('/login', {username: "huangchaoli", password: "happy2"})
-                 .then((message)=>{
-                   console.log(message);
-                   assert(message == 'not such a user');
+                 .then((res)=>{
+                   assert(res.message == 'not such a user');
                  });
     });
   })
