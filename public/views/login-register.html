@@ -2,20 +2,22 @@
 <html>
   <head>
     <link rel="stylesheet" href="/stylesheets/login-register.css"/>
+    <script src="/javascripts/angular.min.js"></script>
+    <script src="/javascripts/angular-resource.min.js"></script>
+    <script src="/javascripts/login-register.js"></script>
   </head>
-  <body>
-    <div id="fs-login-register">
+  <body ng-app="fs">
+    <div id="fs-login-register" ng-controller="login-register">
       <div id="geetest-popup-submit"></div>
       <div class="login-register-wrapper">
         <div class="login-register-container">
           <div class="fs-logo"><span>Food Store</span></div>
           <div class="login-register-form">
-            <div class="login-register-tabs"><span class="tab-item choose">Log in</span>
-            </div>
+            <div class="login-register-tabs"><span class="tab-item choose">Log in</span></div>
             <div class="login-register-tabs-container">
-              <form class="login">
-                <input id="username" type="text" placeholder="User Name" required="required"/>
-                <input id="password" type="password" placeholder="Password" required="required"/>
+              <form ng-submit="loginOneUser($event)" class="login"> 
+                <input id="username" type="text" placeholder="User Name" ng-model="form.username" required="required"/>
+                <input id="password" type="password" placeholder="Password" ng-model="form.password" required="required"/>
                 <div class="form-item">
                   <input id="remember-username" type="checkbox"/>
                   <label for="remember-username">Remember Username</label>

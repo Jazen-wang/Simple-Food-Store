@@ -1,5 +1,0 @@
-{
-  "directory": "public/bower_components/",
-  "timeout": 120000,
-  "registry": "https://bower.herokuapp.com"
-}

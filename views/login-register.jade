@@ -1,9 +1,13 @@
 html
   head
     link(rel="stylesheet" href="/stylesheets/login-register.css")
-  body
+    script(src="/javascripts/angular.min.js")
+    script(src="/javascripts/angular-resource.min.js")
+    script(src="/javascripts/login-register.js")
+    
+  body(ng-app="fs")
 
-    #fs-login-register
+    #fs-login-register(ng-controller="login-register")
       #geetest-popup-submit
       .login-register-wrapper
 
@@ -13,22 +17,16 @@ html
             span Food Store
 
           .login-register-form
-
             .login-register-tabs
               span.tab-item.choose Log in
-              //- span.tab-item Register
 
             .login-register-tabs-container
-              form.login
-                input(id='username' type='text' placeholder='User Name' required)
-                input(id='password' type='password' placeholder='Password'  required)
+              form.login(ng-submit='loginOneUser($event)') 
+                input(id='username' type='text' placeholder='User Name' ng-model='form.username' required)
+                input(id='password' type='password' placeholder='Password' ng-model='form.password' required)
 
                 .form-item
                   input(id='remember-username' type='checkbox')
                   label(for='remember-username') Remember Username
 
-
                 input(type='submit' value='Log in')
-
-              //- form.register(ng-show='selectedTab == "register"')
-              //-   h2 注册功能敬请期待!~

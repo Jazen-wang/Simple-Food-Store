@@ -28,18 +28,22 @@ module.exports = function (db) {
 }
 
 function setPublicRouter() {
-  
+
   app.get('/', function(req, res) {
-    console.log(__dirname);
-    let dir = '../public/views/all-foods.html';
+    let dir = '../public/views/login-register.html';
     res.sendFile(path.join(__dirname, dir));
   });
 
   app.get('/login', function(req, res) {
-    console.log(__dirname);
     let dir = '../public/views/login-register.html';
     res.sendFile(path.join(__dirname, dir));
   });
+
+  app.get('/all-foods', function(req, res) {
+    let dir = '../public/views/all-foods.html';
+    res.sendFile(path.join(__dirname, dir));
+  });
+
 }
 
 function setAuthRouter() {
@@ -106,4 +110,3 @@ function setErrorHandle() {
     res.end('error HTML');
   });
 }
-
