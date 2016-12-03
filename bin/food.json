@@ -3,30 +3,35 @@
         "foodname":"猪肉盖饭",
         "price":100,
         "description":"这个饭可真棒",
-        "vip":false
+        "vip":false,
+        "url": "/images/logo0.jpg"
     },
     {
         "foodname":"青椒炒萝卜",
         "price":200,
         "description":"没吃过这么好吃的饭",
-        "vip":true
+        "vip":true,
+        "url": "/images/logo1.jpg"
     },
     {
         "foodname":"鸡公煲",
         "price":300,
         "description":"真好吃的鸡公煲",
-        "vip":false
+        "vip":false,
+        "url": "/images/logo2.jpg"
     },
     {
         "foodname":"炒饭",
         "price":400,
         "description":"天下第一炒饭",
-        "vip":true
+        "vip":true,
+        "url": "/images/logo3.jpg"
     },
     {
         "foodname":"烧鸭",
         "price":500,
         "description":"比北京烤鸭还棒的烤鸭",
-        "vip":true
+        "vip":true,
+        "url": "/images/logo.jpg"
     }
 ]
