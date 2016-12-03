@@ -40,7 +40,7 @@ gulp.task('browser', function() {
 gulp.task('server', function() {
 
   server.listen({
-    path: './bin/www'
+    path: './server/server.js'
   });
 
 });

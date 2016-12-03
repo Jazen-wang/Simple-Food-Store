@@ -6,14 +6,14 @@ var compression = require('compression');
 var logger = require('./utils/logger');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-
+var path = require('path');
 
 module.exports = function (db) {
   let ctrl = require('./control/index')(db);
 
   app.use(compression());
 
-  app.use(express.static(path.join(__dirname, '../../public')));
+  app.use(express.static(path.join(__dirname, '../public')));
 
   app.use(function (req, res, next){
     logger.info(`${req.method} : ${req.url}`);
@@ -25,8 +25,11 @@ module.exports = function (db) {
   app.use(cookieParser());
 
   app.get('/', function(req, res) {
-    res.end("Just Test");
+    console.log(__dirname);
+    let dir = '../public/views/all-foods.html';
+    res.sendFile(path.join(__dirname, dir));
   });
+
 
   let firstUpperCase = function (str) {
     return str.toString()[0].toUpperCase() + str.toString().slice(1);
