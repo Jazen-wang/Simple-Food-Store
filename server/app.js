@@ -97,6 +97,9 @@ function setLogRouter(ctrl) {
 }
 
 function setModelRouter(ctrl) {
+
+  app.get('/api/getCurrentUser', ctrl.getCurrentUser);
+
   // create model router
 
   let firstUpperCase = function (str) {

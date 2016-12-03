@@ -29,7 +29,7 @@ module.exports = function (db) {
     return function (req, res) {
       let filter = req.query || {};
       table['find' + tableName](filter).then((arr)=>{
-        sendData(res, 200, JSON.stringify(arr));
+        sendData(res, 200, arr);
       }).catch((err)=>{
         sendData(res, 400, err.message);
       })
@@ -65,6 +65,12 @@ module.exports = function (db) {
   interface.logout = function (req, res, next) {
     if (req.session) req.session.user = null;
     sendData(res, 200, 'logout success');
+  }
+
+  interface.getCurrentUser = function (req, res, next) {
+    let currentUser = req.session && req.session.user;
+    delete currentUser.password;
+    sendData(res, 200, currentUser);
   }
 
   return interface; 
