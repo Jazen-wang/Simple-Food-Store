@@ -29,7 +29,7 @@ module.exports = function (db) {
     return function (req, res) {
       let filter = req.query || {};
       table['find' + tableName](filter).then((arr)=>{
-        res.end(arr.toString());
+        sendData(res, 200, JSON.stringify(arr));
       }).catch((err)=>{
         sendData(res, 400, err.message);
       })
