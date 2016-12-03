@@ -7,7 +7,6 @@ module.exports = function (db) {
   var interface = {};
 
   let sendData = function (res, state, message) {
-    res.writeHead(state);
     let data = {
       state: state,
       message: message
