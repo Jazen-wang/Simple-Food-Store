@@ -1,7 +1,7 @@
 
-angular.module("fs", []);
+angular.module("fs", ['ngResource']);
 
-angular.module("fs").controller('all-foods', ['$scope', '$timeout', function($scope, $timeout) {
+angular.module("fs").controller('all-foods', ['$scope', '$timeout', '$resource', function($scope, $timeout, $resource) {
   $scope.test = "aaa";
   $scope.itemModel = "";
   $scope.foodItems = [
