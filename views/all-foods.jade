@@ -27,4 +27,26 @@ html
           .food-name {{item.foodName}}
           .food-price 价格￥ {{item.foodPrice}}
           .food-vip VIP
-          
+          .selectAddOrSub.sub(ng-click="changeOneFood($event, item.id, 'sub')") -
+          .selectAddOrSub.add(ng-click="changeOneFood($event, item.id, 'add')") +
+      
+      .footer-container
+        .order-lists
+          table
+            thead
+              tr
+                th.table-food-name 菜品
+                th.table-food-numbers 份数
+                th.table-food-price 价格
+            tbody
+              tr(ng-repeat="item in foodItems | numbersFilter")
+                td.table-food-name {{item.foodName}}
+                td.table-food-numbers {{item.orderNumbers}}
+                td.table-food-price {{item.orderPrices}}
+            
+        .footer
+          .footer-img
+            img(src="images/bike.png")
+          .submit-area
+            //- span All Costs {{price}}
+            .button 去下单

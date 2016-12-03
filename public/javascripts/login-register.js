@@ -12,8 +12,13 @@ function loginRegister ($scope, $resource, $window) {
       password: $scope.form.password
     }
     $resource(`/login`).save(queryData, function (result) {
-      console.log(result);
-      if (1) success();
+      if (result.state == 200) {
+        success();
+      } else {
+        console.log(result);
+        $window.alert('error');
+      }
+
     });
 
     function success() {

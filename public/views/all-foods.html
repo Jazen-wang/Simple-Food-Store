@@ -29,6 +29,34 @@
           <div class="food-name">{{item.foodName}}</div>
           <div class="food-price">价格￥ {{item.foodPrice}}</div>
           <div class="food-vip">VIP</div>
+          <div ng-click="changeOneFood($event, item.id, 'sub')" class="selectAddOrSub sub">-</div>
+          <div ng-click="changeOneFood($event, item.id, 'add')" class="selectAddOrSub add">+</div>
+        </div>
+      </div>
+      <div class="footer-container">
+        <div class="order-lists">
+          <table>
+            <thead>
+              <tr>
+                <th class="table-food-name">菜品</th>
+                <th class="table-food-numbers">份数</th>
+                <th class="table-food-price">价格</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in foodItems | numbersFilter">
+                <td class="table-food-name">{{item.foodName}}</td>
+                <td class="table-food-numbers">{{item.orderNumbers}}</td>
+                <td class="table-food-price">{{item.orderPrices}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="footer">
+          <div class="footer-img"><img src="images/bike.png"/></div>
+          <div class="submit-area">
+            <div class="button">去下单</div>
+          </div>
         </div>
       </div>
     </div>

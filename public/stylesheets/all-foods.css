@@ -123,12 +123,19 @@ body {
 #all-foods .food-area {
   width: 1000px;
   margin: 0 auto;
+  margin-bottom: 300px;
 }
 
 #all-foods .food-area .food-item {
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   display: inline-block;
   width: 200px;
-  height: 250px;
+  height: 280px;
   margin: 23px;
   background-color: #fff;
   box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.1);
@@ -163,4 +170,129 @@ body {
   position: relative;
   left: 70px;
   top: 34px;
+}
+
+#all-foods .food-area .selectAddOrSub {
+  background-color: #ffd705;
+  color: black;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  border-radius: 3px;
+  font-size: 20px;
+  line-height: 20px;
+  cursor: pointer;
+  text-align: center;
+  padding: 0;
+  cursor: pointer;
+}
+
+#all-foods .food-area .add {
+  position: relative;
+  top: 55px;
+  left: 130px;
+}
+
+#all-foods .food-area .sub {
+  position: relative;
+  top: 55px;
+  left: 100px;
+}
+
+#all-foods .footer-container {
+  position: fixed;
+  width: 300px;
+  height: 250px;
+  right: 30px;
+  float: right;
+  bottom: 0px;
+  z-index: 10;
+  margin-bottom: 20px;
+}
+
+#all-foods .footer-container .order-lists {
+  width: 300px;
+  height: 200px;
+  background-color: #fff;
+  border-top-left-radius: 4px;
+  border-top-left-radius: 4px;
+  overflow: auto;
+}
+
+#all-foods .footer-container .order-lists table {
+  width: 300px;
+  text-align: center;
+}
+
+#all-foods .footer-container .order-lists table thead tr {
+  height: 20px;
+  line-height: 20px;
+}
+
+#all-foods .footer-container .order-lists table thead tr th.table-food-name {
+  width: 50%;
+}
+
+#all-foods .footer-container .order-lists table thead tr th.table-food-numbers, #all-foods .footer-container .order-lists table thead tr th.table-food-price {
+  width: 25%;
+}
+
+#all-foods .footer-container .order-lists table tbody tr {
+  height: 25px;
+  line-height: 25px;
+}
+
+#all-foods .footer-container .order-lists table tbody tr td.table-food-name {
+  width: 50%;
+}
+
+#all-foods .footer-container .order-lists table tbody tr td.table-food-numbers, #all-foods .footer-container .order-lists table tbody tr td.table-food-price {
+  width: 25%;
+}
+
+#all-foods .footer-container .footer {
+  background-color: #6b450a;
+  z-index: 1;
+  height: 50px;
+  border-radius: 4px;
+}
+
+#all-foods .footer-container .footer .footer-img {
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  background-color: #ffd705;
+  display: inline-block;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+#all-foods .footer-container .footer .footer-img img {
+  position: relative;
+  top: 8px;
+  left: 5px;
+}
+
+#all-foods .footer-container .footer .submit-area {
+  width: 100px;
+  display: inline-block;
+  position: relative;
+  top: 8px;
+  left: 140px;
+}
+
+#all-foods .footer-container .footer .submit-area .button {
+  cursor: pointer;
+  height: 30px;
+  width: 60px;
+  float: right;
+  background-color: #ffd705;
+  text-align: center;
+  line-height: 31px;
+  color: #6b450a;
+  border-radius: 4px;
+  font-weight: bold;
+  padding: 0 30px;
+  border: 0;
+  cursor: pointer;
 }
