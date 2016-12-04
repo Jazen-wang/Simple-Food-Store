@@ -12,21 +12,16 @@
         <div class="first-bar">
           <div class="top-bar-content">
             <div class="logo"><img src="images/logo.jpg"/></div>
-            <div class="store-name">林俊杰的店</div>
-            <div class="search-box">
-              <input placeholder="search food"/>
-              <div class="search-button">搜索</div>
-            </div>
+            <div class="store-name">林俊杰的店 我的订单</div>
           </div>
         </div>
         <div class="order-area">
-          <div ng-repeat="item in OC.OrderList" class="order-item">
-            <div class="info">
-              <div class="id"> id：{{item._id}}</div>
-              <div class="address">addr: {{item.address}} ￥</div>
-              <div class="create_time">create_time；{{item.create_time}}</div>
-            </div>
-          </div>
+          <div ng-repeat="item in OC.OrderList" class="order-item"><a target="_blank" href="/order/{{item._id}}">
+              <div class="info">
+                <div class="id">用户名: {{item.username}}</div>
+                <div class="address">订单地址: {{item.address}} </div>
+                <div class="create_time">订单创建时间；{{item.create_time}}</div>
+              </div></a></div>
         </div>
       </div>
     </div>

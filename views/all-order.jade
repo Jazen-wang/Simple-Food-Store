@@ -12,14 +12,13 @@ html
             .top-bar-content
               .logo
                 img(src="images/logo.jpg")
-              .store-name 林俊杰的店
-              .search-box
-                input(placeholder="search food")
-                .search-button 搜索
+              .store-name 林俊杰的店 我的订单
                     
           .order-area
+            //- a(target="_blank" href="/order/{{item._id}}")
             .order-item(ng-repeat="item in OC.OrderList")
-                .info(ng-click="$window.location.href = \"/order/\" + item._id")
-                  .id  id：{{item._id}}
-                  .address addr: {{item.address}} 
-                  .create_time create_time；{{item.create_time}}
+              a(target="_blank" href="/order/{{item._id}}")
+                .info
+                  .id 用户名: {{item.username}}
+                  .address 订单地址: {{item.address}} 
+                  .create_time 订单创建时间；{{item.create_time}}

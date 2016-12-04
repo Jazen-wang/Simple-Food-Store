@@ -1,0 +1,30 @@
+
+<html>
+  <head>
+    <link rel="stylesheet" href="/stylesheets/all-order.css"/>
+    <script src="/javascripts/angular.min.js"></script>
+    <script src="/javascripts/angular-resource.min.js"></script>
+    <script src="/javascripts/one-order.js"></script>
+  </head>
+  <body ng-app="fs">
+    <div id="all-order">
+      <div id="all-orders" ng-controller="one-order">
+        <div class="first-bar">
+          <div class="top-bar-content">
+            <div class="logo"><img src="../images/logo.jpg"/></div>
+            <div class="store-name">林俊杰的店 <span>订单详情</span></div>
+          </div>
+          <div class="order-area">
+            <div class="order-item">
+              <div class="info">
+                <div class="id">用户名: {{orderDetail.username}}</div>
+                <div class="address">订单地址: {{orderDetail.address}} </div>
+                <div class="create_time">下单时间；{{orderDetail.create_time}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -66,7 +66,8 @@
           </div>
           <div class="user-info"><span>{{user.username || "未登录用户"}}</span>
             <div ng-show="user.username" ng-click="logout($event)" class="button">logout</div>
-            <div ng-show="!user.username" ng-click="login($event)" class="button">login</div>
+            <div ng-show="!user.username" ng-click="login($event)" class="button">login</div><a href="/all-order" target="_blank">
+              <div ng-show="user.username" class="button myorder">我的订单</div></a>
           </div>
         </div>
       </div>

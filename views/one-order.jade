@@ -1,0 +1,23 @@
+html
+  head
+    link(rel="stylesheet" href="/stylesheets/all-order.css")
+    script(src="/javascripts/angular.min.js")
+    script(src="/javascripts/angular-resource.min.js")
+    script(src="/javascripts/one-order.js")
+
+  body(ng-app="fs")
+    #all-order
+      #all-orders(ng-controller="one-order")
+        .first-bar
+          .top-bar-content
+            .logo
+              img(src="../images/logo.jpg")
+            .store-name 林俊杰的店 
+              span 订单详情
+
+          .order-area
+            .order-item
+              .info
+                .id 用户名: {{orderDetail.username}}
+                .address 订单地址: {{orderDetail.address}} 
+                .create_time 下单时间；{{orderDetail.create_time}}

@@ -43,7 +43,7 @@ function setParamParser() {
     req.paramData.orderId = orderId;
     next();
   });
-  
+
 }
 
 function setPublicRouter() {
@@ -65,6 +65,10 @@ function setPublicRouter() {
 
   app.get('/all-order', function(req, res) {
     let dir = '../public/views/all-order.html';
+    res.sendFile(path.join(__dirname, dir));
+  });
+  app.get('/order/*', function(req, res) {
+    let dir = '../public/views/one-order.html';
     res.sendFile(path.join(__dirname, dir));
   });
 
