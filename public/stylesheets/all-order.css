@@ -90,10 +90,22 @@ body {
 }
 
 #all-order .order-area .order-item {
-  height: 100px;
+  padding-left: 50px;
+  padding-top: 20px;
+  height: 120px;
   margin: 23px;
   background-color: #fff;
   box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   border: 1px solid #eee;
+}
+
+#all-order .order-area .order-item .info {
+  width: 600px;
+}
+
+#all-order .order-area .order-item .info .cancel {
+  display: inline-block;
+  padding: 2px;
+  background-color: #ffd705;
 }
