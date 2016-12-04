@@ -54,6 +54,8 @@ html
             span {{user.username || "未登录用户"}}
             .button(ng-show="user.username" ng-click="logout($event)") logout
             .button(ng-show="!user.username" ng-click="login($event)") login
+            a(href="/all-order" target="_blank")
+              .button.myorder(ng-show="user.username") 我的订单
       .second-bar
         .second-bar-container
           .img-sort

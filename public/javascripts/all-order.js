@@ -2,38 +2,47 @@ angular
     .module("app", ['ngResource'])
     .controller('OrderController', OrderController);
 
-OrderController.$inject = ['$resource'];
+OrderController.$inject = ['$resource', '$scope'];
 
-function OrderController($resource) {
+function OrderController($resource, $scope) {
     var vm = this;
     vm.OrderList;
+    $scope.user = null;
 
-    getOrderList();
+    retrieveUserId();
+
+    function retrieveUserId() {
+      $resource(`/api/getCurrentUser`).get({}, function (result) {
+        console.log(result);
+        if (result.state == 200) {
+          $scope.user = result.message;
+          getOrderList();
+        } else {
+          $window.alert("请先登录");
+        }
+      });
+    }
 
     function getOrderList() {
-        $resource('/api/order').get({}, function (result) {
-            console.log(result.message)
+      if (!$scope.user) return;
+      let queryData = {
+        userid: $scope.user._id
+      }
+      $resource('/api/order').get(queryData, function (result) {
+          console.log(result.message)
+          if (result.state == 200) {
             vm.OrderList = result.message;
-        });
+            for (let item of vm.OrderList) {
+              let date = new Date(item.create_time);
+              item.convert_create_time = date.toLocaleString();
+
+            }
+          }
+      });
     }
 
     function re(_id) {
         $window.location.href = "/order/" + _id
     }
-    
+
 }
-
-
-
-/*[
-        {
-            foodname:"shit",
-            price:100,
-            count:5
-        }, 
-        {
-            foodname:"bigshit",
-            price:200,
-            count:1
-        }, 
-    ];*/

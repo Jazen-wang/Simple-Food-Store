@@ -246,6 +246,10 @@ body {
   border-radius: 4px;
 }
 
+#all-foods .first-bar .top-bar-content .user-info .myorder {
+  margin-top: 50px;
+}
+
 #all-foods .second-bar {
   background-color: #fff;
   width: 960px;
@@ -334,8 +338,8 @@ body {
 #all-foods .food-area .food-item .food-vip {
   float: right;
   position: relative;
-  left: 70px;
-  top: 34px;
+  left: -43px;
+  top: 11px;
 }
 
 #all-foods .food-area .selectAddOrSub {
@@ -462,4 +466,9 @@ body {
 
 .order-lists table tbody tr td.table-food-numbers, .order-lists table tbody tr td.table-food-price {
   width: 25%;
+}
+
+a, a:hover, a:active, a:visited {
+  text-decoration: none;
+  color: #000;
 }

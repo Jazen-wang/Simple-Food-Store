@@ -59,6 +59,9 @@ angular.module("fs").controller('menu', ['$scope', '$timeout', '$resource', '$wi
       }
     });
   };
+  $scope.toAllOrders = (event) => {
+    $window.location.href = "/all-order"
+  };
   $scope.showDetailMask = (event, item) => {
     $scope.showMaskDetail = true;
     let id = item._id;
@@ -138,7 +141,7 @@ angular.module("fs").controller('menu', ['$scope', '$timeout', '$resource', '$wi
     function success(result) {
       console.log(result)
       $window.alert('成功下单');
-      //$window.location.href = "/order/";// 跳转
+      $window.location.href = "/all-order";// 跳转
     }
   }
 
