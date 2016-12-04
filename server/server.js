@@ -5,7 +5,7 @@
 var logger = require('./utils/logger');
 var MongoClient = require('mongodb').MongoClient
 var url = 'mongodb://localhost:27017/foodStore';
-var appPort = 8002;
+var appPort = 8000;
 
 MongoClient.connect(url, function(err, db) {
 
