@@ -3,10 +3,10 @@ html
     link(rel="stylesheet" href="/stylesheets/all-foods.css")
     script(src="/javascripts/angular.min.js")
     script(src="/javascripts/angular-resource.min.js")
-    script(src="/javascripts/all-foods.js")
+    script(src="/javascripts/menu.js")
     
   body(ng-app="fs")
-    #all-foods(ng-controller="all-foods")
+    #all-foods(ng-controller="menu")
       .mask(ng-show="showMask")
         .order
           .order-header 订单信息
@@ -44,14 +44,17 @@ html
           .search-box
             input(placeholder="search food" ng-model="itemModel")
             .search-button 搜索
-          
+          .user-info
+            span {{user.username || "未登录用户"}}
+            .button(ng-show="user.username" ng-click="logout($event)") logout
+            .button(ng-show="!user.username" ng-click="login($event)") login
       .second-bar
         .second-bar-container
           .img-sort
             img(src="images/icon_sort.png")
           .second-title 美食分类        
       .food-area
-        .food-item(ng-repeat="item in foodItems | fsSearch: itemModel")
+        .food-item(ng-repeat="item in foodItems | fsSearch: itemModel" ng-click="showDetailMask($event, item)")
           img(src="{{item.url}}")
           .food-name {{item.foodname}}
           .food-price 价格￥ {{item.price}}
@@ -76,6 +79,7 @@ html
         .footer
           .footer-img
             img(src="images/bike.png")
-          .submit-area(ng-click="makeOrder($event)")
+          .submit-area
             //- span All Costs {{price}}
-            .button 去下单
+            .button(ng-show="user.username" ng-click="makeOrder($event)") 去下单
+            .button(ng-show="!user.username" ng-click="login($event)") 登录点餐

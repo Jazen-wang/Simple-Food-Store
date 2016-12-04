@@ -22,7 +22,7 @@ function loginRegister ($scope, $resource, $window) {
     });
 
     function success() {
-      $window.location.href = "/all-foods";
+      $window.location.href = "/menu";
     }
   }
 }

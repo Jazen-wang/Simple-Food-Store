@@ -40,8 +40,8 @@ function setPublicRouter() {
     res.sendFile(path.join(__dirname, dir));
   });
 
-  app.get('/all-foods', function(req, res) {
-    let dir = '../public/views/all-foods.html';
+  app.get('/menu', function(req, res) {
+    let dir = '../public/views/menu.html';
     res.sendFile(path.join(__dirname, dir));
   });
 

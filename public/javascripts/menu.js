@@ -1,7 +1,7 @@
 
 angular.module("fs", ['ngResource']);
 
-angular.module("fs").controller('all-foods', ['$scope', '$timeout', '$resource', '$window', function($scope, $timeout, $resource, $window) {
+angular.module("fs").controller('menu', ['$scope', '$timeout', '$resource', '$window', function($scope, $timeout, $resource, $window) {
   $scope.test = "aaa";
   $scope.itemModel = "";
   $scope.showMask = false;
@@ -36,9 +36,27 @@ angular.module("fs").controller('all-foods', ['$scope', '$timeout', '$resource',
       }
 
     }
+    event.stopPropagation();
+
   };
   $scope.submitClicked = (event) => {
     postOrder();
+  };
+  $scope.login = (event) => {
+    $window.location.href="/login";
+  };
+  $scope.logout = (event) => {
+    let queryData = {}
+    $resource(`/logout`).save(queryData, function (result) {
+      if (result.state == 200)
+        $window.location.href="/login";
+      else {
+        console.log("logout errror");
+      }
+    });
+  };
+  $scope.showDetailMask = (event) => {
+    // $resource
   };
 
   function retrieveFood() {
@@ -60,11 +78,10 @@ angular.module("fs").controller('all-foods', ['$scope', '$timeout', '$resource',
 
   function retrieveUserId() {
     $resource(`/api/getCurrentUser`).get({}, function (result) {
-      console.log(result);
       if (result.state == 200) {
         $scope.user = result.message;
       } else {
-        $window.alert("请先登录");ß
+        $window.alert("请先登录");
       }
     });
   }
@@ -90,6 +107,8 @@ angular.module("fs").controller('all-foods', ['$scope', '$timeout', '$resource',
     }
     let queryData = {
       userid: $scope.user._id,
+      username: $scope.orderUsername,
+      phonenumber: $scope.orderPhone,
       foodids: _foodids,
       create_time: new Date(),
       address: $scope.orderAddresss
