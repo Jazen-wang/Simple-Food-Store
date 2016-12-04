@@ -7,7 +7,7 @@ function mainFun($resource, $scope, $window) {
   $scope.orderDetail = {};
 
   let id = $window.location.pathname;
-  $resource(`/api/${id}`).get({}, function(result) {
+  $resource(`/api${id}`).get({}, function(result) {
     console.log(result);
     if (result.state == 200) {
       $scope.orderDetail = result.message;
