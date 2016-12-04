@@ -8,6 +8,45 @@
   </head>
   <body ng-app="fs">
     <div id="all-foods" ng-controller="all-foods">
+      <div ng-show="showMask" class="mask">
+        <div class="order">
+          <div class="order-header">订单信息</div>
+          <div class="info">
+            <p>客户:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input placeholder="username" ng-model="orderUsername"/>
+            </p>
+            <p>订单号码:
+              <input placeholder="phonenumber" ng-model="orderPhone"/>
+            </p>
+            <div class="address">订单地址:
+              <input placeholder="address" ng-model="orderAddresss"/>
+            </div>
+          </div>
+          <div class="order-lists">
+            <table>
+              <thead>
+                <tr>
+                  <th class="table-food-name">菜品</th>
+                  <th class="table-food-numbers">份数</th>
+                  <th class="table-food-price">价格</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in foodItems | numbersFilter">
+                  <td class="table-food-name">{{item.foodname}}</td>
+                  <td class="table-food-numbers">{{item.orderNumbers}}</td>
+                  <td class="table-food-price">{{item.price}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="total">共计 {{orderTotalPrice}}</div>
+          <div class="button-area">
+            <div ng-click="cancelOrder($event)" class="button cancel">取消订单</div>
+            <div ng-click="submitClicked($event)" class="button sure">确定下单</div>
+          </div>
+        </div>
+      </div>
       <div class="first-bar">
         <div class="top-bar-content">
           <div class="logo"><img src="images/logo.jpg"/></div>
@@ -26,11 +65,11 @@
       </div>
       <div class="food-area">
         <div ng-repeat="item in foodItems | fsSearch: itemModel" class="food-item"><img src="{{item.url}}"/>
-          <div class="food-name">{{item.foodName}}</div>
-          <div class="food-price">价格￥ {{item.foodPrice}}</div>
-          <div class="food-vip">VIP</div>
-          <div ng-click="changeOneFood($event, item.id, 'sub')" class="selectAddOrSub sub">-</div>
-          <div ng-click="changeOneFood($event, item.id, 'add')" class="selectAddOrSub add">+</div>
+          <div class="food-name">{{item.foodname}}</div>
+          <div class="food-price">价格￥ {{item.price}}</div>
+          <div ng-show="item.vip" class="food-vip">VIP</div>
+          <div ng-click="changeOneFood($event, item._id, 'sub')" class="selectAddOrSub sub">-</div>
+          <div ng-click="changeOneFood($event, item._id, 'add')" class="selectAddOrSub add">+</div>
         </div>
       </div>
       <div class="footer-container">
@@ -45,16 +84,16 @@
             </thead>
             <tbody>
               <tr ng-repeat="item in foodItems | numbersFilter">
-                <td class="table-food-name">{{item.foodName}}</td>
+                <td class="table-food-name">{{item.foodname}}</td>
                 <td class="table-food-numbers">{{item.orderNumbers}}</td>
-                <td class="table-food-price">{{item.orderPrices}}</td>
+                <td class="table-food-price">{{item.price}}</td>
               </tr>
             </tbody>
           </table>
         </div>
         <div class="footer">
           <div class="footer-img"><img src="images/bike.png"/></div>
-          <div class="submit-area">
+          <div ng-click="makeOrder($event)" class="submit-area">
             <div class="button">去下单</div>
           </div>
         </div>

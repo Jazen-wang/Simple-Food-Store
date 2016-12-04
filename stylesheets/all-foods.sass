@@ -11,6 +11,77 @@ body
   padding: 0
   margin: 0
 #all-foods
+  .mask
+    position: fixed
+    width: 100%
+    height: 100%
+    background-color: rgba(0,0,0,0.5)
+    z-index: 100
+    .order-header
+      height: 30px
+      line-height: 30px
+      font-size: 20px
+      background-color: #ffd705
+      color: #6b450a
+      text-align: center
+    .order
+      min-height: 300px
+      max-height: 600px
+      overflow: auto
+      width: 400px
+      margin: 40 auto
+      background-color: #fff
+      border-radius: 5px
+    .info
+      margin: 10px 30px
+      input
+        width: 240px
+        height: 26px
+        display: inline-block
+        padding: 7px 0
+        font-size: 14px
+        color: #535353
+        border: 1px solid #ccc
+        background: none
+        margin: 5px 0 5px 10px
+        padding-left: 10px
+        margin-right: 0px
+        letter-spacing: normal
+        word-spacing: normal
+        text-transform: none
+        text-indent: 0px
+        text-shadow: none
+        outline: none
+    .total
+      height: 30px
+      line-height: 30px
+      font-size: 20px
+      color: red
+      text-align: center
+    .button-area
+      height: 30px
+      margin-bottom: 20px
+      .button
+        cursor: pointer
+        height: 30px
+        width: 100px
+        float: right
+        padding: 0px
+        text-align: center
+        background-color: #ffd705
+        text-align: center
+        line-height: 31px
+        color: #6b450a
+        border-radius: 4px
+        font-weight: bold
+        border: 0
+        cursor: pointer
+      .cancel
+        float: left
+        margin-left: 30px
+      .sure
+        float: right
+        margin-right: 30px
   .first-bar
     width: 100%
     height: 80px
@@ -174,32 +245,7 @@ body
     bottom: 0px
     z-index: 10
     margin-bottom: 20px
-    .order-lists
-      width: 300px
-      height: 200px
-      background-color: #fff
-      border-top-left-radius: 4px
-      border-top-left-radius: 4px
-      overflow: auto
-      table
-        width: 300px
-        text-align: center
-        thead
-          tr
-            height: 20px
-            line-height: 20px
-            th.table-food-name
-              width: 50%
-            th.table-food-numbers, th.table-food-price
-              width: 25%
-        tbody
-          tr
-            height: 25px
-            line-height: 25px
-            td.table-food-name
-              width: 50%
-            td.table-food-numbers, td.table-food-price
-              width: 25%
+
     .footer
       background-color: #6b450a
       z-index: 1
@@ -225,16 +271,47 @@ body
         top: 8px
         left: 140px
         .button
-          cursor: pointer
-          height: 30px
-          width: 60px
-          float: right
-          background-color: #ffd705
-          text-align: center
-          line-height: 31px
-          color: #6b450a
-          border-radius: 4px
-          font-weight: bold
-          padding: 0 30px
-          border: 0
-          cursor: pointer
+      .button
+        cursor: pointer
+        height: 30px
+        width: 100px
+        float: right
+        padding: 0px
+        text-align: center
+        background-color: #ffd705
+        text-align: center
+        line-height: 31px
+        color: #6b450a
+        border-radius: 4px
+        font-weight: bold
+        border: 0
+        cursor: pointer
+
+
+
+.order-lists
+  width: 300px
+  height: 200px
+  background-color: #fff
+  border-top-left-radius: 4px
+  border-top-left-radius: 4px
+  overflow: auto
+  table
+    width: 300px
+    text-align: center
+    thead
+      tr
+        height: 20px
+        line-height: 20px
+        th.table-food-name
+          width: 50%
+        th.table-food-numbers, th.table-food-price
+          width: 25%
+    tbody
+      tr
+        height: 25px
+        line-height: 25px
+        td.table-food-name
+          width: 50%
+        td.table-food-numbers, td.table-food-price
+          width: 25%

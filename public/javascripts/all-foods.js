@@ -1,29 +1,35 @@
 
 angular.module("fs", ['ngResource']);
 
-angular.module("fs").controller('all-foods', ['$scope', '$timeout', '$resource', function($scope, $timeout, $resource) {
+angular.module("fs").controller('all-foods', ['$scope', '$timeout', '$resource', '$window', function($scope, $timeout, $resource, $window) {
   $scope.test = "aaa";
   $scope.itemModel = "";
-  $scope.foodItems = [
-    {id:'1', foodName: "青年沉醉鸡翅", foodPrice: 14, url: "/images/logo0.jpg", orderNumbers: 0, orderPrices: 0 },
-    {id:'2', foodName: "肉欲六重门", foodPrice: 14, url: "/images/logo1.jpg", orderNumbers: 0, orderPrices: 0 },
-    {id:'3', foodName: "德玛西亚肉饼", foodPrice: 14, url: "/images/logo2.jpg", orderNumbers: 0, orderPrices: 0 },
-    {id:'4', foodName: "卖萌青年辣排", foodPrice: 14, url: "/images/logo3.jpg", orderNumbers: 0, orderPrices: 0 },
-    {id:'5', foodName: "青年沉醉鸡翅", foodPrice: 14, url: "/images/logo0.jpg", orderNumbers: 0, orderPrices: 0 },
-    {id:'6', foodName: "肉欲六重门", foodPrice: 14, url: "/images/logo1.jpg", orderNumbers: 0, orderPrices: 0 },
-    {id:'7', foodName: "德玛西亚肉饼", foodPrice: 14, url: "/images/logo2.jpg", orderNumbers: 0, orderPrices: 0 },
-    {id:'8', foodName: "卖萌青年辣排", foodPrice: 14, url: "/images/logo3.jpg", orderNumbers: 0, orderPrices: 0 },
-    {id:'9', foodName: "青年沉醉鸡翅", foodPrice: 14, url: "/images/logo0.jpg", orderNumbers: 0, orderPrices: 0 },
-    {id:'10', foodName: "肉欲六重门", foodPrice: 14, url: "/images/logo1.jpg", orderNumbers: 0, orderPrices: 0 },
-    {id:'11', foodName: "德玛西亚肉饼", foodPrice: 14, url: "/images/logo2.jpg", orderNumbers: 0, orderPrices: 0 },
-    {id:'12', foodName: "卖萌青年辣排", foodPrice: 14, url: "/images/logo3.jpg", orderNumbers: 0, orderPrices: 0 }
+  $scope.showMask = false;
+  $scope.user = {};
+  $scope.orderAddresss;
+  $scope.orderPhone;
+  $scope.orderUsername;
 
+  retrieveFood();
+  retrieveUserId();
 
-  ];
+  $scope.makeOrder = (event) => {
+    $scope.orderTotalPrice = 0;
+    for (let item of $scope.foodItems) {
+      if (item.orderNumbers != 0) {
+        $scope.orderTotalPrice += item.price * item.orderNumbers;
+        $scope.showMask = true;
+      }
+    }
+  };
+
+  $scope.cancelOrder = (event) => {
+    $scope.showMask = false;
+  };
 
   $scope.changeOneFood = (event, id, flag) => {
     for (let item of $scope.foodItems) {
-      if (item.id == id) {
+      if (item._id == id) {
         if (flag == 'sub' && item.orderNumbers > 0) item.orderNumbers--;
         if (flag == 'add') item.orderNumbers++;
         item.orderPrices = item.orderNumbers * item.foodPrice;
@@ -31,11 +37,80 @@ angular.module("fs").controller('all-foods', ['$scope', '$timeout', '$resource',
 
     }
   };
+  $scope.submitClicked = (event) => {
+    postOrder();
+  };
+
+  function retrieveFood() {
+    $resource(`/api/food`).get({}, function (result) {
+      if (result.state == 200) {
+        success(result);
+      } else {
+        console.log(result);
+      }
+    });
+    function success(result) {
+      $scope.foodItems = result.message;
+      for (let item of $scope.foodItems) {
+        item.orderNumbers = 0;
+        item.orderPrices = 0;
+      }
+    }
+  }
+
+  function retrieveUserId() {
+    $resource(`/api/getCurrentUser`).get({}, function (result) {
+      console.log(result);
+      if (result.state == 200) {
+        $scope.user = result.message;
+      } else {
+        $window.alert("请先登录");ß
+      }
+    });
+  }
+
+  function postOrder() {
+
+    if ($scope.orderUsername == null) {
+      $window.alert("请填写客户名");
+      return;
+    }
+    if ($scope.orderPhone == null) {
+      $window.alert("请填写手机");
+      return;
+    }
+    if ($scope.orderAddresss == null) {
+      $window.alert("请填写地址");
+      return;
+    }
+    let _foodids = [];
+    for (let i = 0; i < $scope.foodItems.length; i++) {
+      if ($scope.foodItems[i].orderNumbers > 0)
+        _foodids.push({foodid: $scope.foodItems[i]._id, num: $scope.foodItems[i].orderNumbers})
+    }
+    let queryData = {
+      userid: $scope.user._id,
+      foodids: _foodids,
+      create_time: new Date(),
+      address: $scope.orderAddresss
+    }
+    $resource(`/api/order`).save(queryData, function (result) {
+      if (result.state == 200) {
+        success(result);
+      } else {
+        $window.alert('提交订单发生错误');
+      }
+    });
+    function success() {
+      $window.alert('成功下单');
+    }
+  }
 
 }]);
 
 angular.module('fs').filter('fsSearch', function() {
   return function(item, search) {
+    if (item == null || item.length == 0) return;
     var expected = ('' + search).toLowerCase();
     var result = [];
     item.forEach(function (item_) {
@@ -50,6 +125,7 @@ angular.module('fs').filter('fsSearch', function() {
 
 angular.module('fs').filter('numbersFilter', function() {
   return function(item) {
+    if (item == null || item.length == 0) return;
     var result = [];
     item.forEach(function (item_) {
       if (item_.orderNumbers > 0) result.push(item_);

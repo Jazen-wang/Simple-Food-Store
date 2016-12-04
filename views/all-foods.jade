@@ -7,6 +7,35 @@ html
     
   body(ng-app="fs")
     #all-foods(ng-controller="all-foods")
+      .mask(ng-show="showMask")
+        .order
+          .order-header 订单信息
+          .info
+            p 客户:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              input(placeholder="username" ng-model="orderUsername")
+            p 订单号码:
+              input(placeholder="phonenumber" ng-model="orderPhone")
+            .address 订单地址:
+              input(placeholder="address" ng-model="orderAddresss")
+          
+          .order-lists
+            table
+              thead
+                tr
+                  th.table-food-name 菜品
+                  th.table-food-numbers 份数
+                  th.table-food-price 价格
+              tbody
+                tr(ng-repeat="item in foodItems | numbersFilter")
+                  td.table-food-name {{item.foodname}}
+                  td.table-food-numbers {{item.orderNumbers}}
+                  td.table-food-price {{item.price}}
+          .total 共计 {{orderTotalPrice}}
+          .button-area
+            .button.cancel(ng-click="cancelOrder($event)") 取消订单
+            .button.sure(ng-click="submitClicked($event)") 确定下单
+                    
+          
       .first-bar
         .top-bar-content
           .logo
@@ -24,11 +53,11 @@ html
       .food-area
         .food-item(ng-repeat="item in foodItems | fsSearch: itemModel")
           img(src="{{item.url}}")
-          .food-name {{item.foodName}}
-          .food-price 价格￥ {{item.foodPrice}}
-          .food-vip VIP
-          .selectAddOrSub.sub(ng-click="changeOneFood($event, item.id, 'sub')") -
-          .selectAddOrSub.add(ng-click="changeOneFood($event, item.id, 'add')") +
+          .food-name {{item.foodname}}
+          .food-price 价格￥ {{item.price}}
+          .food-vip(ng-show="item.vip") VIP
+          .selectAddOrSub.sub(ng-click="changeOneFood($event, item._id, 'sub')") -
+          .selectAddOrSub.add(ng-click="changeOneFood($event, item._id, 'add')") +
       
       .footer-container
         .order-lists
@@ -40,13 +69,13 @@ html
                 th.table-food-price 价格
             tbody
               tr(ng-repeat="item in foodItems | numbersFilter")
-                td.table-food-name {{item.foodName}}
+                td.table-food-name {{item.foodname}}
                 td.table-food-numbers {{item.orderNumbers}}
-                td.table-food-price {{item.orderPrices}}
+                td.table-food-price {{item.price}}
             
         .footer
           .footer-img
             img(src="images/bike.png")
-          .submit-area
+          .submit-area(ng-click="makeOrder($event)")
             //- span All Costs {{price}}
             .button 去下单
