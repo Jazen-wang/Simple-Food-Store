@@ -127,7 +127,26 @@ module.exports = function (db) {
       }
       order.findOrder({"_id": id}).then((arr)=>{
         if (arr.length > 0) {
-          sendData(res, 200, arr[0]);
+          food.findFood({}).then((foods)=>{
+            let foodids = arr[0].foodids;
+
+            for (let i = 0; i < foodids.length; i++) {
+              let thisfood = null;
+              for (let j = 0; j < foods.length; j++) {
+                if (foods[j]._id == foodids[i].foodid) {
+                  thisfood = foods[j]; break;
+                }
+              }
+              if (thisfood) {
+                thisfood.num = foodids[i].num;
+                foodids[i] = thisfood;
+              }
+            }
+
+            sendData(res, 200, arr[0]);
+          }).catch((err)=>{
+            sendData(res, 400, err.message);
+          });
         } else {
           sendData(res, 400, "not such a order");
         }
