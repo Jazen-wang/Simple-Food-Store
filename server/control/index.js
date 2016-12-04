@@ -115,5 +115,27 @@ module.exports = function (db) {
     }
   }
 
+  interface.getOrderById = function (req, res, next) {
+    if (!req.paramData || !req.paramData.orderId) {
+      sendData(res, 400, "no orderId");
+    } else {
+      let id = null;
+      try {
+        id = ObjectID(req.paramData.orderId);
+      } catch (err) {
+        return sendData(res, 400, "orderId is not valid with error : " + err.message);
+      }
+      order.findOrder({"_id": id}).then((arr)=>{
+        if (arr.length > 0) {
+          sendData(res, 200, arr[0]);
+        } else {
+          sendData(res, 400, "not such a order");
+        }
+      }).catch((err)=>{
+        sendData(res, 400, err.message);
+      });
+    }
+  }
+
   return interface; 
 }

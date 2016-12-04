@@ -37,6 +37,12 @@ function setParamParser() {
     req.paramData.foodId = foodId;
     next();
   });
+
+  app.param('id', function (req, res, next, orderId) {
+    req.paramData = req.paramData || {};
+    req.paramData.orderId = orderId;
+    next();
+  });
   
 }
 
@@ -68,6 +74,8 @@ function setAuthRouter() {
   app.get('/*', function(req, res, next) {
     if (!req.session) {
       logger.error("Redis is not start.");
+      res.redirect('/login');
+    } else if ((req.path.indexOf('/order') == 0) && !req.session.user) {
       res.redirect('/login');
     } else if ((req.path.indexOf('/api') == -1) && !req.session.user) {
       res.redirect('/login');
@@ -113,6 +121,8 @@ function setModelRouter(ctrl) {
   app.get('/api/getCurrentUser', ctrl.getCurrentUser);
 
   app.get('/api/cuisine_detail/:name', ctrl.getCuisineDetail);
+
+  app.get('/api/order/:id', ctrl.getOrderById);
 
   // create model router
 
