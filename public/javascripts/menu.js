@@ -4,11 +4,13 @@ angular.module("fs", ['ngResource']);
 angular.module("fs").controller('menu', ['$scope', '$timeout', '$resource', '$window', function($scope, $timeout, $resource, $window) {
   $scope.test = "aaa";
   $scope.itemModel = "";
-  $scope.showMask = false;
+  $scope.showMaskDetail = false;
+  $scope.showMaskOrder = false;
   $scope.user = {};
   $scope.orderAddresss;
   $scope.orderPhone;
   $scope.orderUsername;
+  $scope.selectItem = null;
 
   retrieveFood();
   retrieveUserId();
@@ -18,13 +20,15 @@ angular.module("fs").controller('menu', ['$scope', '$timeout', '$resource', '$wi
     for (let item of $scope.foodItems) {
       if (item.orderNumbers != 0) {
         $scope.orderTotalPrice += item.price * item.orderNumbers;
-        $scope.showMask = true;
+        $scope.showMaskOrder = true;
       }
     }
   };
-
-  $scope.cancelOrder = (event) => {
-    $scope.showMask = false;
+  $scope.cancel = (event, flag) => {
+    if (flag == 'order')
+      $scope.showMaskOrder = false;
+    else if (flag == 'detail')
+      $scope.showMaskDetail = false;
   };
 
   $scope.changeOneFood = (event, id, flag) => {
@@ -55,12 +59,23 @@ angular.module("fs").controller('menu', ['$scope', '$timeout', '$resource', '$wi
       }
     });
   };
-  $scope.showDetailMask = (event) => {
-    // $resource
+  $scope.showDetailMask = (event, item) => {
+    $scope.showMaskDetail = true;
+    let id = item._id;
+    $resource(`/api/cuisine_detail/${id}`).get({}, function (result) {
+      if (result.state == 200) {
+        $scope.selectItem = result.message;
+      } else {
+        console.log("query detail error");
+      }
+    });
+
   };
 
   function retrieveFood() {
     $resource(`/api/food`).get({}, function (result) {
+      console.log(result);
+      // $scope.selectItem = result.message[0];
       if (result.state == 200) {
         success(result);
       } else {
@@ -122,25 +137,11 @@ angular.module("fs").controller('menu', ['$scope', '$timeout', '$resource', '$wi
     });
     function success() {
       $window.alert('成功下单');
+      // 跳转
     }
   }
 
 }]);
-
-angular.module('fs').filter('fsSearch', function() {
-  return function(item, search) {
-    if (item == null || item.length == 0) return;
-    var expected = ('' + search).toLowerCase();
-    var result = [];
-    item.forEach(function (item_) {
-      var actual = ('' + item_).toLowerCase();
-      if (actual.indexOf(expected) !== -1) {
-        result.push(item_);
-      }
-    });
-    return result;
-  }
-});
 
 angular.module('fs').filter('numbersFilter', function() {
   return function(item) {

@@ -1,14 +1,14 @@
 html
   head
-    link(rel="stylesheet" href="/stylesheets/all-foods.css")
+    link(rel="stylesheet" href="/stylesheets/menu.css")
     script(src="/javascripts/angular.min.js")
     script(src="/javascripts/angular-resource.min.js")
     script(src="/javascripts/menu.js")
     
   body(ng-app="fs")
     #all-foods(ng-controller="menu")
-      .mask(ng-show="showMask")
-        .order
+      .mask(ng-show="showMaskOrder || showMaskDetail")
+        .order(ng-show="showMaskOrder")
           .order-header 订单信息
           .info
             p 客户:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -32,10 +32,16 @@ html
                   td.table-food-price {{item.price}}
           .total 共计 {{orderTotalPrice}}
           .button-area
-            .button.cancel(ng-click="cancelOrder($event)") 取消订单
+            .button.cancel(ng-click="cancel($event, 'order')") 取消订单
             .button.sure(ng-click="submitClicked($event)") 确定下单
-                    
-          
+        .order(ng-show="showMaskDetail")
+          img(ng-src="{{selectItem.url}}")
+          .food-description {{selectItem.description}}
+          .food-name {{selectItem.foodname}}
+          .food-price 价格￥ {{selectItem.price}}
+          .food-vip(ng-show="selectItem.vip == true") VIP 
+          .button-area
+            .button.cancel(ng-click="cancel($event, 'detail')") 关闭
       .first-bar
         .top-bar-content
           .logo
@@ -54,11 +60,11 @@ html
             img(src="images/icon_sort.png")
           .second-title 美食分类        
       .food-area
-        .food-item(ng-repeat="item in foodItems | fsSearch: itemModel" ng-click="showDetailMask($event, item)")
-          img(src="{{item.url}}")
+        .food-item(ng-repeat="item in foodItems | filter: itemModel" ng-click="showDetailMask($event, item)")
+          img(ng-src="{{item.url}}")
           .food-name {{item.foodname}}
           .food-price 价格￥ {{item.price}}
-          .food-vip(ng-show="item.vip") VIP
+          .food-vip(ng-show="item.vip == 'true'") VIP
           .selectAddOrSub.sub(ng-click="changeOneFood($event, item._id, 'sub')") -
           .selectAddOrSub.add(ng-click="changeOneFood($event, item._id, 'add')") +
       
@@ -74,7 +80,7 @@ html
               tr(ng-repeat="item in foodItems | numbersFilter")
                 td.table-food-name {{item.foodname}}
                 td.table-food-numbers {{item.orderNumbers}}
-                td.table-food-price {{item.price}}
+                td.table-food-price {{item.price * item.orderNumbers}}
             
         .footer
           .footer-img

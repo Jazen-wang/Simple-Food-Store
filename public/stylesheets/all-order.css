@@ -102,6 +102,7 @@ body {
 
 #all-order .order-area .order-item .info {
   width: 600px;
+  display: float;
 }
 
 #all-order .order-area .order-item .info .cancel {

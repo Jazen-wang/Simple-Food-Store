@@ -1,15 +1,15 @@
 
 <html>
   <head>
-    <link rel="stylesheet" href="/stylesheets/all-foods.css"/>
+    <link rel="stylesheet" href="/stylesheets/menu.css"/>
     <script src="/javascripts/angular.min.js"></script>
     <script src="/javascripts/angular-resource.min.js"></script>
     <script src="/javascripts/menu.js"></script>
   </head>
   <body ng-app="fs">
     <div id="all-foods" ng-controller="menu">
-      <div ng-show="showMask" class="mask">
-        <div class="order">
+      <div ng-show="showMaskOrder || showMaskDetail" class="mask">
+        <div ng-show="showMaskOrder" class="order">
           <div class="order-header">订单信息</div>
           <div class="info">
             <p>客户:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -42,8 +42,17 @@
           </div>
           <div class="total">共计 {{orderTotalPrice}}</div>
           <div class="button-area">
-            <div ng-click="cancelOrder($event)" class="button cancel">取消订单</div>
+            <div ng-click="cancel($event, 'order')" class="button cancel">取消订单</div>
             <div ng-click="submitClicked($event)" class="button sure">确定下单</div>
+          </div>
+        </div>
+        <div ng-show="showMaskDetail" class="order"><img ng-src="{{selectItem.url}}"/>
+          <div class="food-description">{{selectItem.description}}</div>
+          <div class="food-name">{{selectItem.foodname}}</div>
+          <div class="food-price">价格￥ {{selectItem.price}}</div>
+          <div ng-show="selectItem.vip == true" class="food-vip">VIP </div>
+          <div class="button-area">
+            <div ng-click="cancel($event, 'detail')" class="button cancel">关闭</div>
           </div>
         </div>
       </div>
@@ -68,10 +77,10 @@
         </div>
       </div>
       <div class="food-area">
-        <div ng-repeat="item in foodItems | fsSearch: itemModel" ng-click="showDetailMask($event, item)" class="food-item"><img src="{{item.url}}"/>
+        <div ng-repeat="item in foodItems | filter: itemModel" ng-click="showDetailMask($event, item)" class="food-item"><img ng-src="{{item.url}}"/>
           <div class="food-name">{{item.foodname}}</div>
           <div class="food-price">价格￥ {{item.price}}</div>
-          <div ng-show="item.vip" class="food-vip">VIP</div>
+          <div ng-show="item.vip == 'true'" class="food-vip">VIP</div>
           <div ng-click="changeOneFood($event, item._id, 'sub')" class="selectAddOrSub sub">-</div>
           <div ng-click="changeOneFood($event, item._id, 'add')" class="selectAddOrSub add">+</div>
         </div>
@@ -90,7 +99,7 @@
               <tr ng-repeat="item in foodItems | numbersFilter">
                 <td class="table-food-name">{{item.foodname}}</td>
                 <td class="table-food-numbers">{{item.orderNumbers}}</td>
-                <td class="table-food-price">{{item.price}}</td>
+                <td class="table-food-price">{{item.price * item.orderNumbers}}</td>
               </tr>
             </tbody>
           </table>
