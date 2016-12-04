@@ -68,8 +68,8 @@ module.exports = function (db) {
   }
 
   interface.getCurrentUser = function (req, res, next) {
-    let currentUser = req.session && req.session.user;
-    delete currentUser.password;
+    let currentUser = (req.session && req.session.user) || null;
+    if (currentUser) delete currentUser.password;
     sendData(res, 200, currentUser);
   }
 
