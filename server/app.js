@@ -75,6 +75,8 @@ function setAuthRouter() {
     if (!req.session) {
       logger.error("Redis is not start.");
       res.redirect('/login');
+    } else if ((req.path.indexOf('/order') == 0) && !req.session.user) {
+      res.redirect('/login');
     } else if ((req.path.indexOf('/api') == -1) && !req.session.user) {
       res.redirect('/login');
     } else {
