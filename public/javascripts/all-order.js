@@ -1,11 +1,22 @@
 angular
-    .module("app", [])
+    .module("app", ['ngResource', 'ngRoute'])
     .controller('OrderController', OrderController);
 
-function OrderController() {
+OrderController.$inject = ['$resource'];
+
+function OrderController($resource) {
     var vm = this;
-    vm.OrderList = 
-    [
+    vm.OrderList = getOrderList();
+
+    function getOrderList() {
+        
+    }
+    
+}
+
+
+
+/*[
         {
             foodname:"shit",
             price:100,
@@ -16,5 +27,4 @@ function OrderController() {
             price:200,
             count:1
         }, 
-    ];
-}
+    ];*/
