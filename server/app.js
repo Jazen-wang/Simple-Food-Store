@@ -37,6 +37,12 @@ function setParamParser() {
     req.paramData.foodId = foodId;
     next();
   });
+
+  app.param('id', function (req, res, next, orderId) {
+    req.paramData = req.paramData || {};
+    req.paramData.orderId = orderId;
+    next();
+  });
   
 }
 
@@ -113,6 +119,8 @@ function setModelRouter(ctrl) {
   app.get('/api/getCurrentUser', ctrl.getCurrentUser);
 
   app.get('/api/cuisine_detail/:name', ctrl.getCuisineDetail);
+
+  app.get('/api/order/:id', ctrl.getOrderById);
 
   // create model router
 
