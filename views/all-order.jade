@@ -18,9 +18,7 @@ html
                     
           .order-area
             .order-item(ng-repeat="item in OC.OrderList")
-              .info
-                .food-name  名称：{{item.foodname}}
-                .food-price 价格: {{item.price}} ￥
-                .food-count 数量；{{item.count}}
-                .cancel 取消
-              .img(src="{{item.url}}")
+              .food-name {{item.foodname}}
+              .food-price 价格￥ {{item.price}}
+              .food-count 数量；{{item.count}}
+              .cancel 取消
