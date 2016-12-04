@@ -30,7 +30,14 @@ function OrderController($resource, $scope) {
       }
       $resource('/api/order').get(queryData, function (result) {
           console.log(result.message)
-          vm.OrderList = result.message;
+          if (result.state == 200) {
+            vm.OrderList = result.message;
+            for (let item of vm.OrderList) {
+              let date = new Date(item.create_time);
+              item.create_time = date.toLocaleString();
+
+            }
+          }
       });
     }
 

@@ -2,6 +2,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="/stylesheets/all-order.css"/>
+    <link rel="stylesheet" href="/stylesheets/one-order.css"/>
     <script src="/javascripts/angular.min.js"></script>
     <script src="/javascripts/angular-resource.min.js"></script>
     <script src="/javascripts/one-order.js"></script>
@@ -20,6 +21,24 @@
                 <div class="id">用户名: {{orderDetail.username}}</div>
                 <div class="address">订单地址: {{orderDetail.address}} </div>
                 <div class="create_time">下单时间；{{orderDetail.create_time}}</div>
+                <div class="order-lists">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th class="table-food-name">菜品</th>
+                        <th class="table-food-numbers">份数</th>
+                        <th class="table-food-price">价格</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="item in orderDetail.foodids">
+                        <td class="table-food-name">{{item.foodname}}</td>
+                        <td class="table-food-numbers">{{item.num}}</td>
+                        <td class="table-food-price">{{item.num * item.price}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>

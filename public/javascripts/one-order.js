@@ -11,6 +11,11 @@ function mainFun($resource, $scope, $window) {
     console.log(result);
     if (result.state == 200) {
       $scope.orderDetail = result.message;
+      let date = new Date($scope.orderDetail.create_time);
+      $scope.orderDetail.create_time = date.toLocaleString();
+      for (let item of $scope.orderDetail.foodids) {
+        item.price = Number(item.price);
+      }
     } else {
       console.log(result);
     }
