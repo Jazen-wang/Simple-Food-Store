@@ -17,6 +17,8 @@ module.exports = function (db) {
 
   setLogRouter(ctrl);
 
+  setParamParser();
+
   setPublicRouter();
 
   setAuthRouter();
@@ -26,6 +28,16 @@ module.exports = function (db) {
   setErrorHandle();
 
   return app;
+}
+
+function setParamParser() {
+
+  app.param('name', function (req, res, next, foodId) {
+    req.paramData = req.paramData || {};
+    req.paramData.foodId = foodId;
+    next();
+  });
+  
 }
 
 function setPublicRouter() {
@@ -99,6 +111,8 @@ function setLogRouter(ctrl) {
 function setModelRouter(ctrl) {
 
   app.get('/api/getCurrentUser', ctrl.getCurrentUser);
+
+  app.get('/api/cuisine_detail/:name', ctrl.getCuisineDetail);
 
   // create model router
 

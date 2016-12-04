@@ -1,4 +1,5 @@
 var logger = require('../utils/logger');
+var ObjectID = require('mongodb').ObjectID;
 
 module.exports = function (db) {
   let user = require('../model/user')(db);
@@ -71,6 +72,33 @@ module.exports = function (db) {
     let currentUser = (req.session && req.session.user) || null;
     if (currentUser) delete currentUser.password;
     sendData(res, 200, currentUser);
+  }
+
+  interface.getCuisineDetail = function (req, res, next) {
+    if (!req.paramData || !req.paramData.foodId) {
+      sendData(res, 400, "no foodname");
+    } else {
+      let id = null;
+      try {
+        id = ObjectID(req.paramData.foodId);
+      } catch (err) {
+        return sendData(res, 400, "foodname is not valid with error : " + err.message);
+      }
+      food.findFood({"_id": id}).then((arr)=>{
+        let userVip = false;
+        if (req.session && req.session.user) {
+          userVip = req.session.user.vip;
+        }
+        if (arr.length > 0) {
+          arr[0].vip = userVip;
+          sendData(res, 200, arr[0]);
+        } else {
+          sendData(res, 400, "not such a food");
+        }
+      }).catch((err)=>{
+        sendData(res, 400, err.message);
+      });
+    }
   }
 
   return interface; 
