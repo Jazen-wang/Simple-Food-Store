@@ -34,7 +34,7 @@ function OrderController($resource, $scope) {
             vm.OrderList = result.message;
             for (let item of vm.OrderList) {
               let date = new Date(item.create_time);
-              item.create_time = date.toLocaleString();
+              item.convert_create_time = date.toLocaleString();
 
             }
           }

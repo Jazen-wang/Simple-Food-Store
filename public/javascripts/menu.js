@@ -141,7 +141,7 @@ angular.module("fs").controller('menu', ['$scope', '$timeout', '$resource', '$wi
     function success(result) {
       console.log(result)
       $window.alert('成功下单');
-      //$window.location.href = "/order/";// 跳转
+      $window.location.href = "/all-order";// 跳转
     }
   }
 

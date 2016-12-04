@@ -16,11 +16,11 @@
           </div>
         </div>
         <div class="order-area">
-          <div ng-repeat="item in OC.OrderList" class="order-item"><a target="_blank" href="/order/{{item._id}}">
+          <div ng-repeat="item in OC.OrderList | orderBy: -item.create_time" class="order-item"><a target="_blank" href="/order/{{item._id}}">
               <div class="info">
                 <div class="id">用户名: {{item.username}}</div>
                 <div class="address">订单地址: {{item.address}} </div>
-                <div class="create_time">订单创建时间；{{item.create_time}}</div>
+                <div class="create_time">订单创建时间；{{item.convert_create_time}}</div>
               </div></a></div>
         </div>
       </div>
