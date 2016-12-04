@@ -17,21 +17,8 @@ function OrderController($resource) {
         });
     }
 
-    function retrieveFood() {
-        $resource(`/api/food`).get({}, function (result) {
-          if (result.state == 200) {
-            success(result);
-          } else {
-            console.log(result);
-          }
-        });
-        function success(result) {
-          vm.foodItems = result.message;
-          for (let item of vm.foodItems) {
-            item.orderNumbers = 0;
-            item.orderPrices = 0;
-          }
-        }
+    function re(_id) {
+        $window.location.href = "/order/" + _id
     }
     
 }
