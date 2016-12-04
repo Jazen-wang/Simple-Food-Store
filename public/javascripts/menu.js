@@ -135,9 +135,10 @@ angular.module("fs").controller('menu', ['$scope', '$timeout', '$resource', '$wi
         $window.alert('提交订单发生错误');
       }
     });
-    function success() {
+    function success(result) {
+      console.log(result)
       $window.alert('成功下单');
-      // 跳转
+      //$window.location.href = "/order/";// 跳转
     }
   }
 
